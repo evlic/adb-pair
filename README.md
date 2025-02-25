@@ -8,3 +8,6 @@ Try to Make WiFi-ADB Easier.(Android 11+ Only.
 配对原理是查看 AS 2020.3.1 Canary Preview 版本的源码得来,在博客中有详细介绍:https://saltedfish.fun/index.php/archives/29/
 
 需要安装ADB并加入到环境变量.
+
+> 原仓库没有支持 go install 
+> 另外 git 管理得比较糟糕 甚至有编译产物 清理后发布新的 main 分支
