@@ -1,6 +1,6 @@
-module ADB_Pair_Go
+module github.com/evlic/adb-pair
 
-go 1.15
+go 1.19
 
 require (
 	github.com/grandcat/zeroconf v1.0.0
