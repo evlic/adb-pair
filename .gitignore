@@ -1,0 +1,5 @@
+.idea
+_*
+_out
+_lo_only_*
+.env
