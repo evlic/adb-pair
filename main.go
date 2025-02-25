@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/evlic/adb-pair/internal"
 	"github.com/grandcat/zeroconf"
 	"github.com/mdp/qrterminal"
 	"log"
@@ -34,10 +35,10 @@ func main() {
 
 	serviceId = fmt.Sprintf("studio-%s", RandStringRunes(8))
 	password = RandStringRunes(8)
-	if TestSixelSupport(os.Stdout) {
+	if internal.TestSixelSupport(os.Stdout) {
 		buf := bytes.NewBufferString("")
 		qrterminal.Generate(fmt.Sprintf("WIFI:T:ADB;S:%s;P:%s;;", serviceId, password), qrterminal.M, buf)
-		SixelPrint(buf.String())
+		internal.SixelPrint(buf.String())
 	} else {
 		qrterminal.GenerateHalfBlock(fmt.Sprintf("WIFI:T:ADB;S:%s;P:%s;;", serviceId, password), qrterminal.M, os.Stdout)
 	}
@@ -78,11 +79,11 @@ func main() {
 					if strings.Contains(string(res), "unknown command") {
 						fmt.Println("⚠️ 您的Adb版本尚未支持pair功能,尝试使用Adb Service Protocol.")
 						adbConnect := fmt.Sprintf("host:pair:%s:%s", password, fmt.Sprintf("%s:%d", entry.AddrIPv4, entry.Port))
-						connection := AdbConnection{}
+						connection := internal.AdbConnection{}
 						connection.Init("tcp:127.0.0.1:5037")
-						connection.writeString(adbConnect)
+						connection.WriteString(adbConnect)
 						var status string
-						status, err = connection.readStatus()
+						status, err = connection.ReadStatus()
 						status = strings.ToLower(status)
 						if err != nil {
 							res = []byte(fmt.Sprintf("Failed: %s", err.Error()))

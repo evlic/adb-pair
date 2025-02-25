@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"fmt"
@@ -15,10 +15,10 @@ func TestAdbConnection_Pair(t *testing.T) {
 	var c AdbConnection
 	c.Init("tcp:127.0.0.1:5037")
 	fmt.Println("Connected")
-	c.writeString("host:pair:123456:192.168.0.0:1111") //Dummy data
+	c.WriteString("host:pair:123456:192.168.0.0:1111") //Dummy data
 	fmt.Println("Sent")
 
-	status, err := c.readStatus()
+	status, err := c.ReadStatus()
 
 	status = strings.ToLower(status)
 

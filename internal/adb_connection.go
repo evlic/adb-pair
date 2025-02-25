@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"errors"
@@ -48,7 +48,7 @@ func (c *AdbConnection) Init(addr string) {
 func (c *AdbConnection) Close() error {
 	return (*c.conn).Close()
 }
-func (c *AdbConnection) writeString(s string) {
+func (c *AdbConnection) WriteString(s string) {
 	if c.conn == nil {
 		log.Fatal("adb: connection is closed")
 	}
@@ -93,7 +93,7 @@ func (c *AdbConnection) readString() string {
 	}
 	return string(buf)
 }
-func (c *AdbConnection) readStatus() (string, error) {
+func (c *AdbConnection) ReadStatus() (string, error) {
 	status := string(c.readExactly(4))
 	if status == AdbStatusFail {
 		message := "adb protocol failed: " + c.readString()
